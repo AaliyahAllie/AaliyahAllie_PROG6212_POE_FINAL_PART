@@ -24,5 +24,32 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
         {
             InitializeComponent();
         }
+
+        //redirects user to the lecturer login if they are a lecturer they will be allowed to login
+        private void LecturerLogin_Click(object sender, RoutedEventArgs e)
+        {
+            LecturerLogin lecturerLogin = new LecturerLogin();
+            lecturerLogin.Show();
+        }
+        //redirects user to coordinator login if they are a coordinator they will be allowed to login
+        private void ProgrammeCoordinatorLogin_Click(object sender, RoutedEventArgs e)
+        {
+            ProgrammeCoordinatorLogin coordinatorLogin = new ProgrammeCoordinatorLogin();
+            coordinatorLogin.Show();
+        }
+
+        //redirects user to the create account window if they do not have an account
+        private void CreateAccountButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateAccountWindow createAccountWindow = new CreateAccountWindow();
+            createAccountWindow.Show();
+        }
+        private void GoToHRView_Click(object sender, RoutedEventArgs e)
+        {
+            // Create and show the HRView window
+            HRView hrViewWindow = new HRView();
+            hrViewWindow.Show();
+            this.Close(); // Close the MainWindow if desired
+        }
     }
 }

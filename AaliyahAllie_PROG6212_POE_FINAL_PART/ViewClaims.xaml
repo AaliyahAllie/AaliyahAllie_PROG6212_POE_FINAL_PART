@@ -1,0 +1,20 @@
+﻿<Window x:Class="AaliyahAllie_PROG6212_POE_FINAL_PART.ViewClaims"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="View Claims" Height="400" Width="600">
+    <Grid Background="#FF579ED4">
+        <ListView x:Name="ClaimsListView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,60">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Claim ID" Width="80" DisplayMemberBinding="{Binding ClaimID}"/>
+                    <GridViewColumn Header="Class Taught" Width="200" DisplayMemberBinding="{Binding ClassTaught}"/>
+                    <GridViewColumn Header="Total Amount" Width="100" DisplayMemberBinding="{Binding TotalAmount}"/>
+                    <GridViewColumn Header="Claim Status" Width="100" DisplayMemberBinding="{Binding ClaimStatus}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Content="Edit Claim" Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,20" Click="EditClaim_Click"/>
+        <Button Content="Delete Claim" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20" Click="DeleteClaim_Click"/>
+    </Grid>
+</Window>
