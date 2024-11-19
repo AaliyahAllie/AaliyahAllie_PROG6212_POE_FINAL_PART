@@ -1,64 +1,33 @@
 ﻿<Window x:Class="AaliyahAllie_PROG6212_POE_FINAL_PART.HRView"
+      
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-        Title="HRView" Height="450" Width="800">
-    <Grid>
-        <TabControl>
-            <!-- Tab for Claims Report Generation -->
-            <TabItem Header="Generate Claim Reports">
-                <StackPanel>
-                    <StackPanel.Background>
-                        <SolidColorBrush Color="#FF579ED4"/>
-                    </StackPanel.Background>
-                    <TextBlock Text="Generate Reports for Approved Claims" 
-                               FontSize="18" FontWeight="Bold" Margin="10"/>
-                    <Button Content="Generate Claims Report" 
-                            Width="200" Height="40" Click="GenerateReport_Click" 
-                            Margin="10"/>
-                </StackPanel>
-            </TabItem>
+        Title="HR View" Height="600" Width="800">
+    <Grid Margin="10" Background= "#FF579ED4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <!-- Tab for Lecturer Data Management -->
-            <TabItem Header="Manage Lecturer Data">
-                <StackPanel>
-                    <StackPanel.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFB9CEB6" Offset="0.091"/>
-                            <GradientStop Color="#FF1F2F48" Offset="1"/>
-                        </LinearGradientBrush>
-                    </StackPanel.Background>
-                    <TextBlock Text="Update Information" 
-                               FontSize="18" FontWeight="Bold" Margin="10"/>
+        <!-- Lecturer Claims Data -->
+        <DataGrid x:Name="ClaimsDataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Claim ID" Binding="{Binding ClaimsID}" Width="*"/>
+                <DataGridTextColumn Header="Class Taught" Binding="{Binding ClassTaught}" Width="*"/>
+                <DataGridTextColumn Header="No. of Sessions" Binding="{Binding NoOfSessions}" Width="*"/>
+                <DataGridTextColumn Header="Hourly Rate" Binding="{Binding HourlyRatePerSession}" Width="*"/>
+                <DataGridTextColumn Header="Total Amount" Binding="{Binding ClaimTotalAmount}" Width="*"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding ClaimStatus}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
-                    <!-- Search by Email -->
-                    <TextBlock Text="Search by Email:" Margin="10,5,10,0"/>
-                    <TextBox Name="txtSearchEmail" Margin="10"/>
-                    <Button Content="Search" 
-                            Width="100" Height="30" Click="SearchLecturer_Click" 
-                            Margin="10"/>
-
-                    <!-- Editable Lecturer Information -->
-                    <TextBlock Text="First Name:" Margin="10,5,10,0"/>
-                    <TextBox Name="txtFirstName" Margin="10"/>
-
-                    <TextBlock Text="Last Name:" Margin="10,5,10,0"/>
-                    <TextBox Name="txtLastName" Margin="10"/>
-
-                    <TextBlock Text="Email:" Margin="10,5,10,0"/>
-                    <TextBox Name="txtEmail" Margin="10" IsEnabled="False"/>
-                    <!-- Email is not editable for consistency -->
-
-                    <TextBlock Text="Phone Number:" Margin="10,5,10,0"/>
-                    <TextBox Name="txtPhoneNumber" Margin="10"/>
-
-                    <Button Content="Update Information" 
-                            Width="200" Height="40" Click="UpdateLecturer_Click" 
-                            Margin="10"/>
-                </StackPanel>
-            </TabItem>
-        </TabControl>
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+            <Button x:Name="GenerateReportButton" Content="Generate Report" Width="150" Margin="10" Click="GenerateReportButton_Click"/>
+            <Button x:Name="UpdateLecturerButton" Content="Update Lecturer Info" Width="150" Margin="10" Click="UpdateLecturerButton_Click"/>
+        </StackPanel>
     </Grid>
 </Window>
+
+
