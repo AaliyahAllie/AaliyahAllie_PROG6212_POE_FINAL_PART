@@ -22,8 +22,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    // Updated query to match columns in the screenshot
-                    string query = "SELECT ClaimID, ClassTaught, NumberOfSessions, TotalAmount, ClaimStatus FROM Claims";
+                    string query = "SELECT ClaiMID, ClassTaught, NumberOfSessions, TotalAmount, ClaimStatus FROM Claims";
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
@@ -40,18 +39,18 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
         {
             try
             {
+                // Example: Generating a report for approved claims
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    // Generating a report based on the updated column names
-                    string query = "SELECT ClaimID, TotalAmount FROM Claims WHERE ClaimStatus = 'Approved'";
+                    string query = "SELECT * FROM Claims WHERE ClaimStatus = 'Approved'";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     string report = "Approved Claims Report\n\n";
                     while (reader.Read())
                     {
-                        report += $"Claim ID: {reader["ClaimID"]}, Total Amount: {reader["TotalAmount"]}\n";
+                        report += $"Claim ID: {reader["ClaimID"]}, Total: {reader["TotalAmount"]}\n";
                     }
 
                     MessageBox.Show(report, "Report");
@@ -67,15 +66,16 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
         {
             if (ClaimsDataGrid.SelectedItem is DataRowView row)
             {
-                int claimId = Convert.ToInt32(row["ClaimID"]); // Updated to use ClaimID
-                UpdateLecturerWindow updateWindow = new UpdateLecturerWindow(claimId);
+                int ClaimID = Convert.ToInt32(row["ClaimID"]);
+                UpdateLecturerWindow updateWindow = new UpdateLecturerWindow(ClaimID);
                 updateWindow.ShowDialog();
                 LoadClaimsData(); // Refresh data grid after update
             }
             else
             {
-                MessageBox.Show("Please select a claim to update.");
+                MessageBox.Show("Please select a lecturer to update.");
             }
         }
+
     }
 }
