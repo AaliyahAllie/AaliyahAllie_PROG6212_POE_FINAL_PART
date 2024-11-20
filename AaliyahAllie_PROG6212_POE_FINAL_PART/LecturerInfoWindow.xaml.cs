@@ -2,14 +2,16 @@
 using System.Data.SqlClient;
 using System.Windows;
 
+//this window will allow the user to view and edit the lecturer information
 namespace AaliyahAllie_PROG6212_POE_FINAL_PART
 {
     public partial class LecturerInfoWindow : Window
     {
+        //connection to database
         private readonly string connectionString = "Data Source=hp820g4\\SQLEXPRESS;Initial Catalog=POE;Integrated Security=True;";
         private readonly string firstName;
         private readonly string lastName;
-
+        //connection to database and loading the lecturer data
         public LecturerInfoWindow(string firstName, string lastName)
         {
             InitializeComponent();
@@ -17,7 +19,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
             this.lastName = lastName;
             LoadLecturerData();
         }
-
+        //loads lecturer data and displays it in the textboxes
         private void LoadLecturerData()
         {
             try
@@ -54,6 +56,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
             }
         }
 
+        //saves changes into the database
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -88,6 +91,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
             }
         }
 
+        //deletes information from the database
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to delete this lecturer?", "Confirm Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
