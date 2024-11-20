@@ -1,14 +1,4 @@
-README
-Contents
-INTRODUCTION
-Changes
-Part 3 Automation Features
-Lecturer View
-Programme Coordinator View
-HR VIEW
-Git Hub Repo Link
-GIT COMMIT HISTORY
-Conclusion
+
 INTRODUCTION
 For the final part of our POE of the semester, we are tasked with adding automation features to our lecturer view and our coordinator view, as well as introducing a new view called the HR view.
 
@@ -33,10 +23,8 @@ The new HR view automatically approves user claims if they are set to "PENDING."
 Users can update lecturer information by searching for their name and surname.
 It also allows for the generation and downloading of reports based on approved claims.
 Git Hub Repo Link
-GitHub Repository
+https://github.com/AaliyahAllie/AaliyahAllie_PROG6212_POE_FINAL_PART.git
 
-GIT COMMIT HISTORY
-(Details of the git commit history can be added here)
 
 Conclusion
 In conclusion, the final POE has successfully implemented essential automation features to enhance the usability of the application for lecturers and programme coordinators.
