@@ -5,9 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using Microsoft.Win32;
-
+// This window will allow the user to view and approve/reject claims
 namespace AaliyahAllie_PROG6212_POE_FINAL_PART
 {
+    
     public partial class ProgrammeCoordinatorDashboard : Window
     {
         public ProgrammeCoordinatorDashboard()
@@ -15,23 +16,23 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
             InitializeComponent();
             LoadClaims();
         }
-
+        //Loads and displays the claims in the list view
         private void LoadClaims()
         {
             List<Claim> claims = GetClaimsFromDatabase();
             ClaimsListView.ItemsSource = claims;
         }
-
+        //Retrieves the claims from the database
         private List<Claim> GetClaimsFromDatabase()
         {
             List<Claim> claims = new List<Claim>();
             string connectionString = "Data Source=hp820g4\\SQLEXPRESS;Initial Catalog=POE;Integrated Security=True;";
             string query = "SELECT ClaimID, ClassTaught, TotalAmount, ClaimStatus, NumberOfSessions FROM Claims";
-
+            // Connect to the database and retrieve the claims
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
-
+                
                 try
                 {
                     connection.Open();
@@ -55,7 +56,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
             }
             return claims;
         }
-
+        //Updates the claim status in the database
         private void UpdateClaimStatus(int claimID, string newStatus)
         {
             string connectionString = "Data Source=hp820g4\\SQLEXPRESS;Initial Catalog=POE;Integrated Security=True;";
@@ -79,12 +80,16 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 }
             }
         }
-
+        //Validates the claim
+        //Automatically approves claims that meet the criteria
+        //Automation Feature for Part 3
         private bool ValidateClaim(Claim claim)
         {
+            // Check if the hourly rate is between $100 and $200
             const decimal minHourlyRate = 100.00m;
             const decimal maxHourlyRate = 200.00m;
             decimal hourlyRate = claim.TotalAmount / claim.NumberOfSessions;
+            // Check if the hourly rate is between $100 and $200
 
             return hourlyRate >= minHourlyRate && hourlyRate <= maxHourlyRate;
         }
@@ -99,7 +104,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 }
             }
         }
-
+        //Rejects the claim
         private void RejectButton_Click(object sender, RoutedEventArgs e)
         {
             if (ClaimsListView.SelectedItem is Claim selectedClaim)
@@ -107,7 +112,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 UpdateClaimStatus(selectedClaim.ClaimID, "Rejected");
             }
         }
-
+        //Changes claim status to pending
         private void PendingButton_Click(object sender, RoutedEventArgs e)
         {
             if (ClaimsListView.SelectedItem is Claim selectedClaim)
@@ -115,7 +120,11 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 UpdateClaimStatus(selectedClaim.ClaimID, "Pending");
             }
         }
-
+        //Runs the automation process
+        //Automatically approves claims that meet the criteria
+        //Automation for part 3
+        //If claims on "Waiting" status and has 5 or more sessions, approve it
+        //If claims on "Waiting" status is less change to pending
         private void RunAutomationButton_Click(object sender, RoutedEventArgs e)
         {
             List<Claim> claims = GetClaimsFromDatabase();
@@ -136,7 +145,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
 
             MessageBox.Show("Automation process completed!");
         }
-
+        //Download files
         private void DownloadDocument_Click(object sender, RoutedEventArgs e)
         {
             if (ClaimsListView.SelectedItem is Claim selectedClaim)
