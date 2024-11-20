@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Win32; // Add this for SaveFileDialog
 
 namespace AaliyahAllie_PROG6212_POE_FINAL_PART
 {
@@ -51,10 +53,27 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                     string report = "Approved Claims Report\n\n";
                     while (reader.Read())
                     {
-                        report += $"Claim ID: {reader["ClaimID"]}, Total: {reader["TotalAmount"]}\n";
+                        report += $"Claim ID: {reader["ClaimID"]}, Class Taught: {reader["ClassTaught"]}, " +
+                                  $"Number of Sessions: {reader["NumberOfSessions"]}, Hourly Rate: {reader["HourlyRate"]}, " +
+                                  $"Total Amount: {reader["TotalAmount"]}, Status: {reader["ClaimStatus"]}\n";
                     }
 
+                    // Show the report in a message box
                     MessageBox.Show(report, "Report");
+
+                    // Ask user where to save the report
+                    SaveFileDialog saveFileDialog = new SaveFileDialog
+                    {
+                        Filter = "Text files (*.txt)|*.txt|CSV files (*.csv)|*.csv",
+                        DefaultExt = "txt",
+                        AddExtension = true
+                    };
+
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        File.WriteAllText(saveFileDialog.FileName, report);
+                        MessageBox.Show("Report saved successfully!", "Success");
+                    }
                 }
             }
             catch (Exception ex)
@@ -165,6 +184,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 MessageBox.Show($"Error deleting claim: {ex.Message}");
             }
         }
+
         private async Task AutoApprovePendingClaimsAsync()
         {
             try
@@ -186,6 +206,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 MessageBox.Show($"Error during auto-approval: {ex.Message}");
             }
         }
+
         private async void AutoUpdateButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -213,7 +234,6 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 MessageBox.Show($"Error updating claim statuses: {ex.Message}");
             }
         }
-
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
