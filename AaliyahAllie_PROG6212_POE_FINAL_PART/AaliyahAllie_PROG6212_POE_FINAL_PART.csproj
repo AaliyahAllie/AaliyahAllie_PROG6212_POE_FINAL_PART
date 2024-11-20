@@ -168,14 +168,14 @@
     <Compile Include="HRView.xaml.cs">
       <DependentUpon>HRView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LecturerInfoWindow.xaml.cs">
+      <DependentUpon>LecturerInfoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubmitClaim.xaml.cs">
       <DependentUpon>SubmitClaim.xaml</DependentUpon>
     </Compile>
     <Compile Include="SupportingDocs.xaml.cs">
       <DependentUpon>SupportingDocs.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UpdateLecturerWindow.xaml.cs">
-      <DependentUpon>UpdateLecturerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewClaims.xaml.cs">
       <DependentUpon>ViewClaims.xaml</DependentUpon>
@@ -193,6 +193,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LecturerDashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LecturerInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -237,10 +241,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SupportingDocs.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UpdateLecturerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

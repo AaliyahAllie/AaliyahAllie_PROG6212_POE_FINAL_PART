@@ -93,25 +93,26 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
             }
 
             // Save the claim to the database
-            SaveClaimToDatabase(classTaught, numberOfSessions, totalAmount, uploadedFilePath);
+            SaveClaimToDatabase(classTaught, numberOfSessions, hourlyRate, totalAmount, uploadedFilePath);
 
             // Clear the form after successful submission
             ClearForm();
         }
 
         // Method to save claim details to the database
-        private void SaveClaimToDatabase(string classTaught, int sessions, double totalAmount, string documentPath)
+        private void SaveClaimToDatabase(string classTaught, int sessions, double hourlyRate, double totalAmount, string documentPath)
         {
             string connectionString = "Data Source=hp820g4\\SQLEXPRESS;Initial Catalog=POE;Integrated Security=True;";
 
-            string query = @"INSERT INTO Claims (ClassTaught, NumberOfSessions, TotalAmount, SupportingDocumentPath)
-                             VALUES (@ClassTaught, @NumberOfSessions, @TotalAmount, @DocumentPath)";
+            string query = @"INSERT INTO Claims (ClassTaught, NumberOfSessions, HourlyRate, TotalAmount, SupportingDocumentPath)
+                             VALUES (@ClassTaught, @NumberOfSessions, @HourlyRate, @TotalAmount, @DocumentPath)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@ClassTaught", classTaught);
                 command.Parameters.AddWithValue("@NumberOfSessions", sessions);
+                command.Parameters.AddWithValue("@HourlyRate", hourlyRate);
                 command.Parameters.AddWithValue("@TotalAmount", totalAmount);
                 command.Parameters.AddWithValue("@DocumentPath", documentPath); // Store file path
 
