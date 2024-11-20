@@ -122,13 +122,15 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
 
             foreach (var claim in claims)
             {
-                if (claim.ClaimStatus == "Pending" && ValidateClaim(claim))
+                // Check if the claim status is "WAITING" and has 5 or more sessions
+                if (claim.ClaimStatus == "WAITING" && claim.NumberOfSessions >= 5 && ValidateClaim(claim))
                 {
                     UpdateClaimStatus(claim.ClaimID, "Approved");
                 }
-                else if (claim.ClaimStatus == "Pending")
+                // If the claim is "WAITING" but does not meet the criteria, reject it
+                else if (claim.ClaimStatus == "WAITING")
                 {
-                    UpdateClaimStatus(claim.ClaimID, "Rejected");
+                    UpdateClaimStatus(claim.ClaimID, "PENDING");
                 }
             }
 
