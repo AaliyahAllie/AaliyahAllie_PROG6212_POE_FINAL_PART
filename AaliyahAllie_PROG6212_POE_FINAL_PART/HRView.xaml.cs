@@ -172,7 +172,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     await conn.OpenAsync();
-                    string query = "UPDATE Claims SET ClaimStatus = 'Approved' WHERE ClaimStatus = 'Pending' AND SubmissionDate < DATEADD(DAY, -7, GETDATE())";
+                    string query = "UPDATE Claims SET ClaimStatus = 'Approved' WHERE ClaimStatus = 'Pending' ";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     int rowsAffected = await cmd.ExecuteNonQueryAsync();
                     if (rowsAffected > 0)
@@ -186,6 +186,34 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 MessageBox.Show($"Error during auto-approval: {ex.Message}");
             }
         }
+        private async void AutoUpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    await conn.OpenAsync();
+                    string query = "UPDATE Claims SET ClaimStatus = 'PROCESSING' WHERE ClaimStatus = 'WAITING'";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show($"{rowsAffected} claims updated to 'PROCESSING'.");
+                        LoadClaimsData(); // Refresh the data grid
+                    }
+                    else
+                    {
+                        MessageBox.Show("No claims were updated. There may be no claims with the status 'WAITING'.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating claim statuses: {ex.Message}");
+            }
+        }
+
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
