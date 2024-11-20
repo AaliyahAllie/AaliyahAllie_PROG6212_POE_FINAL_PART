@@ -4,12 +4,13 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.Win32; // Add this for SaveFileDialog
+using Microsoft.Win32;
 
+//new feature HR view automatically approves users claims if it is set to “PENDING” and it allows users to update lecturer information if they search for their name and surname, it will allow generate a report based on approved claims and it will download it.
 namespace AaliyahAllie_PROG6212_POE_FINAL_PART
 {
     public partial class HRView : Window
-    {
+    {//connect to database
         private readonly string connectionString = "Data Source=hp820g4\\SQLEXPRESS;Initial Catalog=POE;Integrated Security=True;";
 
         public HRView()
@@ -17,7 +18,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
             InitializeComponent();
             LoadClaimsData();
         }
-
+        //load and display claims in the database
         private void LoadClaimsData()
         {
             try
@@ -37,7 +38,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 MessageBox.Show($"Error loading claims data: {ex.Message}");
             }
         }
-
+        //generates report for approved claims and displays it in a message box
         private void GenerateReportButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -68,7 +69,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                         DefaultExt = "txt",
                         AddExtension = true
                     };
-
+                    //saves report to a file
                     if (saveFileDialog.ShowDialog() == true)
                     {
                         File.WriteAllText(saveFileDialog.FileName, report);
@@ -81,7 +82,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 MessageBox.Show($"Error generating report: {ex.Message}");
             }
         }
-
+        //searches for a lecturer and allows for their information to be updated or deleted
         private void SearchLecturerButton_Click(object sender, RoutedEventArgs e)
         {
             string firstName = FirstNameTextBox.Text.Trim();
@@ -96,7 +97,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
             LecturerInfoWindow lecturerInfoWindow = new LecturerInfoWindow(firstName, lastName);
             lecturerInfoWindow.ShowDialog();
         }
-
+        //change claim to approved
         private void ApproveClaimButton_Click(object sender, RoutedEventArgs e)
         {
             if (ClaimsDataGrid.SelectedItem is DataRowView selectedRow)
@@ -109,7 +110,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 MessageBox.Show("Please select a claim to approve.");
             }
         }
-
+        //delete a claim
         private void DeleteClaimButton_Click(object sender, RoutedEventArgs e)
         {
             if (ClaimsDataGrid.SelectedItem is DataRowView selectedRow)
@@ -125,7 +126,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 MessageBox.Show("Please select a claim to delete.");
             }
         }
-
+    //updates the status of a claim
         private void UpdateClaimStatus(int claimId, string newStatus)
         {
             try
@@ -184,7 +185,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 MessageBox.Show($"Error deleting claim: {ex.Message}");
             }
         }
-
+        //Automation to automatically approve of claims set to PENDING
         private async Task AutoApprovePendingClaimsAsync()
         {
             try
@@ -206,7 +207,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 MessageBox.Show($"Error during auto-approval: {ex.Message}");
             }
         }
-
+        //CHANGES CLAIM STATUS TO PROCESSING IF IT IS WAITING
         private async void AutoUpdateButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -234,7 +235,7 @@ namespace AaliyahAllie_PROG6212_POE_FINAL_PART
                 MessageBox.Show($"Error updating claim statuses: {ex.Message}");
             }
         }
-
+        //REDIRECTS BACK TO HOME PAGE
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow(); // Create a new instance of MainWindow
